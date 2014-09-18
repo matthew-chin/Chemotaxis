@@ -1,6 +1,22 @@
+import processing.core.*; 
+import processing.data.*; 
+import processing.event.*; 
+import processing.opengl.*; 
+
+import java.util.HashMap; 
+import java.util.ArrayList; 
+import java.io.File; 
+import java.io.BufferedReader; 
+import java.io.PrintWriter; 
+import java.io.InputStream; 
+import java.io.OutputStream; 
+import java.io.IOException; 
+
+public class Chemotaxis extends PApplet {
+
 Bacteria[] germ = new Bacteria[10];
 
-void setup()   
+public void setup()   
 {     
 	size(300,300);
 	background(152,251,152);
@@ -13,7 +29,7 @@ void setup()
 	}
 
 }   
-void draw()   
+public void draw()   
 { 
 	int i = 0;
 	while(i < germ.length)
@@ -21,7 +37,7 @@ void draw()
 		germ[i].die();
 		germ[i].move();
 		germ[i].show();
-		if(germ[i].siz < 1.5)
+		if(germ[i].siz < 1.5f)
 		{
 			germ[i] = new Bacteria((int)(Math.random()*256),(int)(Math.random()*256),(int)(Math.random()*256));	
 
@@ -49,20 +65,20 @@ class Bacteria
 		g = tempg;
 		b = tempb;
 	}
-	void die()
+	public void die()
 	{
-		if(Math.random() < .3)
+		if(Math.random() < .3f)
 		{
 			siz -= Math.random()/150;
 		}
 	}
-	void show()
+	public void show()
 	{
 		fill(r,g,b);
 		stroke(r - 100, g - 100, b - 100);
 		ellipse(x,y,siz,siz);
 	}
-	void move()
+	public void move()
 	{
 		int plusX, plusY;
 		plusX = (int)(Math.random()*3)-1;
@@ -71,3 +87,12 @@ class Bacteria
 		y += plusY;
 	}
 }  
+  static public void main(String[] passedArgs) {
+    String[] appletArgs = new String[] { "Chemotaxis" };
+    if (passedArgs != null) {
+      PApplet.main(concat(appletArgs, passedArgs));
+    } else {
+      PApplet.main(appletArgs);
+    }
+  }
+}
